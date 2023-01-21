@@ -4,12 +4,12 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 import pickle
-
+from backend.settings import CSV_ROOT
 class SVM:
     def __init__(self,file_name,model_name):
         self.model_name = model_name
         self.file_name = file_name
-        self.df = pd.read_csv(self.file_name)
+        self.df = pd.read_csv(CSV_ROOT)
     def Fill_Up_Empty_Values(self):
         self.df["Number of years of employment"].fillna(
             self.df["Number of years of employment"].mode()[0], inplace=True)
@@ -41,7 +41,7 @@ class Predicting_Loan:
         self.test_list = []  # making an empty list for future use whose name is test_lsit
         self.test_dict = {}  # making an empty dictionary for future use whose name is test_dict
     def Decode_User_Input(self):
-        df = pd.read_csv(self.file_name)  # reading the csv file
+        df = pd.read_csv(CSV_ROOT)  # reading the csv file
         for col in df:  # running a for loop on df which gives all the column names
             le = LabelEncoder()  # deining a label encoder
             if df[col].dtype == "object":  # if the column is of type object i.e string
@@ -76,3 +76,4 @@ class Predicting_Loan:
 # ['2', 'all loans at this bank paid back duly', 'Education Loan', '2', 'co-applicant', 'between 1 and 4 years', 'female and divorced/seperated/married', '2', '3', 'between 0 and 200', 'between 100 and 500', '2', 'bank', 'No', 'No', '2', 'No property', 'management/ self-employed/highly qualified employee/ officer', 'for free', '2']
 
 # [1, 'critical account/other loans existing (not at this bank)','New Car Purchase', 1028, 'none', 'between 1 and 4 years','female and divorced/seperated/married', 2, 36,'no current account', 'less than 100', 4, 'none', 'Yes', 'No', 18,'Real Estate', 'skilled employee / official', 'own', 3]
+

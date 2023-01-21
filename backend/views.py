@@ -12,12 +12,13 @@ import datetime
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .Users_Loan_Approval import Predicting_Loan
-
+from .settings import CSV_ROOT
 
 class Get_User_Input(APIView):
     def post(self, request):
         data = request.data
         print(data)
-        user = Predicting_Loan(r"C:\Users\Pradeep Kumar\Desktop\enosium project\backend\backend\Track_1.csv",data)
+        print(CSV_ROOT)
+        user = Predicting_Loan(CSV_ROOT,data)
         
         return Response(user.Predict_Result(), status=status.HTTP_200_OK)
