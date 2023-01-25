@@ -50,17 +50,22 @@ class Predicting_Loan:
                 # append different types of features available in that respective column into an empty list called test_list
                 self.test_list.append(
                     list(le.inverse_transform([i for i in set(df[col])])))
+        
         for i in self.test_list:  # running a for loop on test_list
             count = 0  # init count=0
             for j in i:  # since test_list is a nested list running for loop on the innermost list
                 # replacing the values of the nested lists with integers
                 self.test_dict[j] = count
                 count = count + 1  # increasing count by 1
+       
         for i in range(len(self.Users_Input)):
+          
             if self.Users_Input[i] in self.test_dict.keys():
                 self.Users_Input[i] = self.test_dict[self.Users_Input[i]]
-            elif type(self.Users_Input[i])==str:
+            
+            elif type(self.Users_Input[i]) is str:
                 self.Users_Input[i] = int(self.Users_Input[i])
+     
     def Predict_Result(self):
         self.Decode_User_Input()
         model = pickle.load(open(self.model_name, 'rb'))
@@ -77,3 +82,4 @@ class Predicting_Loan:
 
 # [1, 'critical account/other loans existing (not at this bank)','New Car Purchase', 1028, 'none', 'between 1 and 4 years','female and divorced/seperated/married', 2, 36,'no current account', 'less than 100', 4, 'none', 'Yes', 'No', 18,'Real Estate', 'skilled employee / official', 'own', 3]
 
+# {'0': '1', '1': 'all loans at this bank paid back duly', '2': 'Education Loan', '3': '2', '4': 'co-applicant', '5': 'between 1 and 4 years', '6': 'female and divorced/seperated/married', '7': '1', '8': '1', '9': 'between 0 and 200', '10': 'between 100 and 500', '11': '1', '12': 'bank', '13': 'No', '14': 'No', '15': '1', '16': 'No property', '17': 'management/ self-employed/highly qualified employee/ officer','18': 'for free', '19': '3'}

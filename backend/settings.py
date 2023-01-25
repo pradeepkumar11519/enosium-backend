@@ -130,4 +130,4 @@ CORS_ALLOW_CREDENTIALS = True
 STATICFILES_DIRS = os.path.join(BASE_DIR,'static'),
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles_build','static')
 CSV_ROOT = os.path.join(os.path.dirname(__file__),'Track_1.csv')
-MODEL_ROOT = os.path.join(BASE_DIR,'Load_Approval_Model.sav')
+MODEL_ROOT = os.path.join(os.path.join(__file__),'Load_Approval_Model.sav')

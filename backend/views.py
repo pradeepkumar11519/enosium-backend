@@ -13,12 +13,16 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .Users_Loan_Approval import Predicting_Loan
 from .settings import CSV_ROOT
+from django.contrib.auth.models import User
+from rest_framework.decorators import api_view
+from .serializer import *
 
 class Get_User_Input(APIView):
-    def post(self, request):
-        data = request.data
-        print(data)
-        print(CSV_ROOT)
-        user = Predicting_Loan(CSV_ROOT,data)
-        
-        return Response(user.Predict_Result(), status=status.HTTP_200_OK)
+    def post(self,request):
+            data = request.data
+            print(data)
+            new_list = [data[i] for i in data.keys()]
+            print(new_list)
+            user = Predicting_Loan(CSV_ROOT,new_list)
+            
+            return Response(user.Predict_Result(), status=status.HTTP_200_OK)
